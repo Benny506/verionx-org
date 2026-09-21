@@ -1,0 +1,14 @@
+{
+  "name": "VerionX",
+  "short_name": "VerionX",
+  "icons": [
+    {
+      "src": "/logo-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#EB1C25",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

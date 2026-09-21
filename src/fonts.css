@@ -1,0 +1,170 @@
+@theme {
+  --font-family-rubik: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-rubik: var(--font-family-rubik);
+}
+
+:root {
+  --font-family-rubik: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Font Weight Tokens */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+  --fw-black: 900;
+
+  /* Type Scale Tokens */
+  --fs-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);      /* 12px - 13px */
+  --fs-sm: clamp(0.875rem, 0.825rem + 0.25vw, 0.9375rem);   /* 14px - 15px */
+  --fs-base: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);      /* 16px - 17px */
+  --fs-lg: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);      /* 18px - 20px */
+  --fs-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);         /* 20px - 24px */
+  --fs-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);      /* 24px - 30px */
+  --fs-3xl: clamp(1.875rem, 1.65rem + 1.1vw, 2.25rem);      /* 30px - 36px */
+  --fs-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem);          /* 36px - 48px */
+  --fs-5xl: clamp(2.75rem, 2.25rem + 2.5vw, 3.875rem);      /* 44px - 62px */
+  --fs-6xl: clamp(3.25rem, 2.5rem + 3.75vw, 4.75rem);       /* 52px - 76px */
+}
+
+/* Base Typography Layer */
+@layer base {
+  html {
+    font-family: var(--font-family-rubik);
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: -0.011em;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-family-rubik);
+    font-weight: var(--fw-regular);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-app);
+  }
+
+  /* Headings Typography Hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-rubik);
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+  }
+
+  h1 {
+    font-size: var(--fs-5xl);
+    font-weight: var(--fw-extrabold);
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+  }
+
+  h2 {
+    font-size: var(--fs-4xl);
+    font-weight: var(--fw-bold);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  h3 {
+    font-size: var(--fs-3xl);
+    font-weight: var(--fw-bold);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  h4 {
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  h5 {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+  }
+
+  h6 {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-medium);
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  /* Paragraphs & Text Elements */
+  p {
+    font-family: var(--font-family-rubik);
+    font-size: var(--fs-base);
+    font-weight: var(--fw-regular);
+    line-height: 1.68;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  p.lead {
+    font-size: var(--fs-lg);
+    line-height: 1.6;
+    font-weight: var(--fw-normal);
+  }
+
+  small, .caption {
+    font-size: var(--fs-sm);
+    line-height: 1.4;
+  }
+
+  /* Interactive & Form Elements */
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: var(--font-family-rubik);
+    font-size: var(--fs-base);
+    font-weight: var(--fw-medium);
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Weights Utilities for Rubik */
+.font-rubik {
+  font-family: var(--font-family-rubik);
+}
+
+.font-light {
+  font-weight: var(--fw-light);
+}
+
+.font-normal {
+  font-weight: var(--fw-regular);
+}
+
+.font-medium {
+  font-weight: var(--fw-medium);
+}
+
+.font-semibold {
+  font-weight: var(--fw-semibold);
+}
+
+.font-bold {
+  font-weight: var(--fw-bold);
+}
+
+.font-extrabold {
+  font-weight: var(--fw-extrabold);
+}
+
+.font-black {
+  font-weight: var(--fw-black);
+}

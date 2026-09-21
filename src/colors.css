@@ -1,0 +1,146 @@
+@theme {
+  --color-primary-50: #fff1f1;
+  --color-primary-100: #ffe1e1;
+  --color-primary-200: #ffc7c8;
+  --color-primary-300: #ffa0a2;
+  --color-primary-400: #ff686c;
+  --color-primary-500: #eb1c25;
+  --color-primary-600: #d70d18;
+  --color-primary-700: #b40711;
+  --color-primary-800: #950b13;
+  --color-primary-900: #7b1016;
+  --color-primary-950: #440306;
+
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+
+  --color-violet-400: #a78bfa;
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed;
+
+  --color-cyan-400: #22d3ee;
+  --color-cyan-500: #06b6d4;
+  --color-cyan-600: #0891b2;
+
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f4f4f5;
+  --color-neutral-200: #e4e4e7;
+  --color-neutral-300: #d4d4d8;
+  --color-neutral-400: #a1a1aa;
+  --color-neutral-500: #71717a;
+  --color-neutral-600: #52525b;
+  --color-neutral-700: #3f3f46;
+  --color-neutral-800: #27272a;
+  --color-neutral-900: #18181b;
+  --color-neutral-950: #09090b;
+}
+
+:root {
+  /* ==========================================================================
+     VerionX Color System
+     Primary Brand Color: #EB1C25 (VerionX Crimson Red)
+     ========================================================================== */
+
+  /* Primary Crimson Shades */
+  --color-primary-50: #fff1f1;
+  --color-primary-100: #ffe1e1;
+  --color-primary-200: #ffc7c8;
+  --color-primary-300: #ffa0a2;
+  --color-primary-400: #ff686c;
+  --color-primary-500: #eb1c25; /* Primary Brand */
+  --color-primary-600: #d70d18;
+  --color-primary-700: #b40711;
+  --color-primary-800: #950b13;
+  --color-primary-900: #7b1016;
+  --color-primary-950: #440306;
+
+  /* Playful & Premium Secondary / Accent Accents */
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+
+  --color-violet-400: #a78bfa;
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed;
+
+  --color-cyan-400: #22d3ee;
+  --color-cyan-500: #06b6d4;
+  --color-cyan-600: #0891b2;
+
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+
+  /* Neutral Surface & Monochrome Gradients */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f4f4f5;
+  --color-neutral-200: #e4e4e7;
+  --color-neutral-300: #d4d4d8;
+  --color-neutral-400: #a1a1aa;
+  --color-neutral-500: #71717a;
+  --color-neutral-600: #52525b;
+  --color-neutral-700: #3f3f46;
+  --color-neutral-800: #27272a;
+  --color-neutral-900: #18181b;
+  --color-neutral-950: #09090b;
+
+  /* Semantic Variables (Light Theme Baseline) */
+  --bg-app: #ffffff;
+  --bg-surface: #fafafa;
+  --bg-surface-subtle: #f4f4f5;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fcfcfd;
+  --bg-glass: rgba(255, 255, 255, 0.82);
+
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+  --text-inverse: #ffffff;
+
+  --border-subtle: #f4f4f5;
+  --border-default: #e4e4e7;
+  --border-strong: #d4d4d8;
+  --border-primary: rgba(235, 28, 37, 0.35);
+
+  --primary: var(--color-primary-500);
+  --primary-hover: var(--color-primary-600);
+  --primary-foreground: #ffffff;
+  --primary-glow: rgba(235, 28, 37, 0.28);
+
+  /* Shadows & Glows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-brand: 0 12px 30px -4px rgba(235, 28, 37, 0.22);
+}
+
+/* Dark Mode Palette */
+.dark,
+[data-theme='dark'] {
+  --bg-app: #09090b;
+  --bg-surface: #111114;
+  --bg-surface-subtle: #18181b;
+  --bg-card: #141417;
+  --bg-card-hover: #1c1c20;
+  --bg-glass: rgba(18, 18, 22, 0.75);
+
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-inverse: #09090b;
+
+  --border-subtle: #27272a;
+  --border-default: #3f3f46;
+  --border-strong: #52525b;
+  --border-primary: rgba(235, 28, 37, 0.45);
+
+  --shadow-brand: 0 12px 36px -4px rgba(235, 28, 37, 0.35);
+}
