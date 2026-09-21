@@ -8,6 +8,8 @@ import {
   FiZap,
   FiDollarSign,
   FiAward,
+  FiChevronLeft,
+  FiChevronRight,
 } from 'react-icons/fi'
 import { ImageWrapper } from '../ImageWrapper'
 import { scrollToTarget } from '../layout/SmoothScroll'
@@ -100,41 +102,36 @@ const STAGES: Stage[] = [
       'Expand into new online markets and locations',
     ],
     imageUrl:
-      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
-    imageAlt: 'Diverse startup founders celebrating expansion milestone',
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
+    imageAlt: 'Business analytics metrics and revenue scale graph',
     accentColor: 'text-emerald-500',
     accentBg: 'bg-emerald-500/10',
     badgeColor: 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
     glowColor: 'rgba(16, 185, 129, 0.22)',
-    metricLabel: 'Funding Opportunities',
-    metricValue: '$150k+ Match Radar',
-    metricSub: 'Grant Programs & Regional Subsidies',
+    metricLabel: 'Capital Multiplier',
+    metricValue: '$50,000+ Matched Grants',
+    metricSub: 'Non-Dilutive Capital Secured',
     icon: FiDollarSign,
-    ctaText: 'Scale & Find Grants',
+    ctaText: 'Discover Grants & Scaling',
   },
 ]
 
 export const VenturesRoadmap: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null)
+  const mobileCarouselRef = useRef<HTMLDivElement>(null)
   const [activeStageIdx, setActiveStageIdx] = useState(0)
   const [sliceProgress, setSliceProgress] = useState(0)
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0)
 
-  // Scroll tracking across the 3 stages
+  // Calibrated scroll height: 60vh per stage (~180vh total)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   })
 
-  // Synchronize nav visibility and active stage calculations
-  const updateNavAndStage = useCallback((latestProgress: number) => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect()
-      const isPinned = rect.top <= 10 && rect.bottom >= window.innerHeight - 10
-      window.dispatchEvent(
-        new CustomEvent('verionx:nav-visibility', { detail: { hidden: isPinned } })
-      )
-    }
-
+  // Synchronize stage calculation based on scroll progression on desktop
+  const updateStage = useCallback((latestProgress: number) => {
+    if (window.innerWidth < 1024) return
     const total = STAGES.length
     const step = 1 / total
     const clampedProgress = Math.max(0, Math.min(0.9999, latestProgress))
@@ -147,31 +144,12 @@ export const VenturesRoadmap: React.FC = () => {
 
   useEffect(() => {
     const unsubscribe = scrollYProgress.on('change', (latest) => {
-      updateNavAndStage(latest)
+      updateStage(latest)
     })
+    return () => unsubscribe()
+  }, [scrollYProgress, updateStage])
 
-    const handleWindowScroll = () => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect()
-        const isPinned = rect.top <= 10 && rect.bottom >= window.innerHeight - 10
-        window.dispatchEvent(
-          new CustomEvent('verionx:nav-visibility', { detail: { hidden: isPinned } })
-        )
-      }
-    }
-
-    window.addEventListener('scroll', handleWindowScroll, { passive: true })
-
-    return () => {
-      window.removeEventListener('scroll', handleWindowScroll)
-      window.dispatchEvent(
-        new CustomEvent('verionx:nav-visibility', { detail: { hidden: false } })
-      )
-      unsubscribe()
-    }
-  }, [scrollYProgress, updateNavAndStage])
-
-  // Click on stage pills to glide smoothly to that stage
+  // Precise scrolling on desktop stage pill click
   const handleStageClick = (sIdx: number) => {
     if (!containerRef.current) return
     const containerRect = containerRef.current.getBoundingClientRect()
@@ -186,6 +164,28 @@ export const VenturesRoadmap: React.FC = () => {
     const targetY = containerTop + targetProgress * maxScroll
 
     scrollToTarget(targetY)
+  }
+
+  // Mobile horizontal carousel scroll listener & smooth navigation
+  const handleMobileScroll = () => {
+    if (!mobileCarouselRef.current) return
+    const el = mobileCarouselRef.current
+    const card = el.firstElementChild as HTMLElement | null
+    if (!card) return
+    const cardWidth = card.offsetWidth + 16
+    const scrollLeft = el.scrollLeft
+    const newIdx = Math.round(scrollLeft / cardWidth)
+    setMobileActiveIndex(Math.max(0, Math.min(STAGES.length - 1, newIdx)))
+  }
+
+  const scrollMobileTo = (idx: number) => {
+    if (!mobileCarouselRef.current) return
+    const el = mobileCarouselRef.current
+    const card = el.firstElementChild as HTMLElement | null
+    if (!card) return
+    const cardWidth = card.offsetWidth + 16
+    el.scrollTo({ left: idx * cardWidth, behavior: 'smooth' })
+    setMobileActiveIndex(idx)
   }
 
   const activeStage = STAGES[activeStageIdx] || STAGES[0]
@@ -204,16 +204,154 @@ export const VenturesRoadmap: React.FC = () => {
             How We Help You Build Your Business
           </h2>
           <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 mt-4 leading-relaxed">
-            From a raw thought in your head to a real, profitable company. Scroll down to follow our
-            3 simple, proven stages.
+            From a raw thought in your head to a real, profitable company. Explore our 3 simple,
+            proven stages.
           </p>
         </div>
       </div>
 
-      {/* 2. Scroll-Hijacking Pinned Presentation Container */}
+      {/* 2. Mobile Horizontal Gesture Snap Carousel (Apple / Stripe Mobile Pattern) */}
+      <div className="block lg:hidden py-8">
+        {/* Swipe Track */}
+        <div
+          ref={mobileCarouselRef}
+          onScroll={handleMobileScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 px-4 sm:px-6 pb-4 scrollbar-none scroll-smooth"
+        >
+          {STAGES.map((stg, sIdx) => {
+            const StageIcon = stg.icon
+            return (
+              <div
+                key={stg.number}
+                className="w-[88vw] sm:w-[75vw] max-w-[380px] shrink-0 snap-center rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xl overflow-hidden flex flex-col justify-between"
+              >
+                {/* Visual Header Image */}
+                <div className="relative w-full h-44 overflow-hidden">
+                  <ImageWrapper
+                    src={stg.imageUrl}
+                    alt={stg.imageAlt}
+                    className="w-full h-full object-cover"
+                    imgClassName="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+
+                  {/* Top Badge Overlay */}
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                    <span className="px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[10px] font-bold text-white uppercase tracking-wider">
+                      Phase {stg.number}
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold text-white">
+                      {stg.tagline}
+                    </span>
+                  </div>
+
+                  {/* Bottom Metric Tag */}
+                  <div className="absolute bottom-3 left-3 right-3 px-3 py-1.5 rounded-xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border border-white/40 dark:border-neutral-700/60 shadow flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <div
+                        className={`w-7 h-7 rounded-lg ${stg.accentBg} ${stg.accentColor} flex items-center justify-center font-bold`}
+                      >
+                        <StageIcon className="w-3.5 h-3.5" />
+                      </div>
+                      <div className="text-xs font-extrabold text-neutral-900 dark:text-white">
+                        {stg.metricValue}
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                      Verified
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card Body */}
+                <div className="p-5 flex flex-col justify-between flex-grow">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${stg.badgeColor}`}>
+                        {stg.division}
+                      </span>
+                      <span className="text-xs font-mono font-semibold text-neutral-400">
+                        Stage {sIdx + 1} of 3
+                      </span>
+                    </div>
+
+                    <h3 className="text-lg font-extrabold text-neutral-900 dark:text-white mb-1.5">
+                      {stg.name}
+                    </h3>
+                    <h4 className="text-xs font-bold text-neutral-700 dark:text-neutral-200 mb-2 leading-snug">
+                      {stg.headline}
+                    </h4>
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
+                      {stg.description}
+                    </p>
+
+                    {/* Deliverables */}
+                    <div className="space-y-1.5 mb-4">
+                      {stg.deliverables.map((item, dIdx) => (
+                        <div key={dIdx} className="flex items-start space-x-2 text-[11px] font-medium text-neutral-700 dark:text-neutral-300">
+                          <FiCheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Card CTA */}
+                  <a
+                    href="/contact"
+                    className="w-full mt-2 py-3 px-4 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-bold text-xs flex items-center justify-center space-x-1.5 shadow-lg shadow-primary-500/25 active:scale-[0.98] transition-all"
+                  >
+                    <span>{stg.ctaText}</span>
+                    <FiArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Carousel Indicators & Controls */}
+        <div className="px-4 mt-4 flex items-center justify-between">
+          <button
+            onClick={() => scrollMobileTo(Math.max(0, mobileActiveIndex - 1))}
+            disabled={mobileActiveIndex === 0}
+            className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 disabled:opacity-30 flex items-center justify-center transition-all cursor-pointer"
+            aria-label="Previous stage"
+          >
+            <FiChevronLeft className="w-4 h-4" />
+          </button>
+
+          {/* Dots Indicator */}
+          <div className="flex items-center space-x-2">
+            {STAGES.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                onClick={() => scrollMobileTo(dotIdx)}
+                aria-label={`Jump to stage ${dotIdx + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  dotIdx === mobileActiveIndex
+                    ? 'w-7 bg-primary-500'
+                    : 'w-2 bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400'
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={() => scrollMobileTo(Math.min(STAGES.length - 1, mobileActiveIndex + 1))}
+            disabled={mobileActiveIndex === STAGES.length - 1}
+            className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 disabled:opacity-30 flex items-center justify-center transition-all cursor-pointer"
+            aria-label="Next stage"
+          >
+            <FiChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* 3. Desktop Scroll-Hijacking Pinned Presentation Container (hidden on mobile, full cinematic scroll on lg:) */}
       <div
         ref={containerRef}
-        className="relative"
+        className="relative hidden lg:block"
         style={{ height: `${STAGES.length * 60}vh` }}
       >
         {/* Sticky Pinned Viewport */}

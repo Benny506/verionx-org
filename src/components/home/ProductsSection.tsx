@@ -14,6 +14,8 @@ import {
   FiTrendingUp,
   FiTarget,
   FiCompass,
+  FiChevronLeft,
+  FiChevronRight,
 } from 'react-icons/fi'
 import { scrollToTarget } from '../layout/SmoothScroll'
 
@@ -98,42 +100,42 @@ const PRODUCTS: ProductDetail[] = [
     color: 'text-cyan-500',
     accentBg: 'bg-cyan-500/10',
     glowColor: 'rgba(6, 182, 212, 0.22)',
-    gamificationNote: 'Revenue Milestones • Earn Level Up Perks for every 10 Customers closed',
-    gamificationBadge: 'Sales Milestone 🔥',
+    gamificationNote: 'Founder Milestone Tracker • Double XP on First 10 Invoices',
+    gamificationBadge: 'Deal Closer 💼',
     ctaText: 'Learn More About BuzX',
     ctaHref: '/contact',
   },
   {
     id: 'marketx',
     name: 'MarketX',
-    tagline: 'Digital Marketplace',
-    headline: 'Buy and sell useful templates, designs, and tools with the community.',
+    tagline: 'Store & Catalog Creator',
+    headline: 'Put your products online and start selling in under 10 minutes.',
     description:
-      'A friendly store built right into VerionX. Discover practical templates made by creators, or publish your own tools to earn points and real income.',
+      'Set up a simple, beautiful online store, manage inventory effortlessly, and accept payments from anywhere in the world.',
     icon: FiShoppingBag,
-    badge: 'Online Store',
+    badge: 'Online Commerce',
     color: 'text-primary-500',
     accentBg: 'bg-primary-500/10',
     glowColor: 'rgba(235, 28, 37, 0.22)',
-    gamificationNote: 'Verified Creator Tier • Earn Creator Points and trade royalties',
-    gamificationBadge: 'Top Creator 🛍️',
+    gamificationNote: 'Storefront Leveler • Bonus Theme Unlocks at 50 Sales',
+    gamificationBadge: 'Merchant Master 🛍️',
     ctaText: 'Learn More About MarketX',
     ctaHref: '/contact',
   },
   {
     id: 'grantx',
     name: 'GrantX',
-    tagline: 'Business Funding Finder',
-    headline: 'Discover and apply for startup grants and free business funding.',
+    tagline: 'Non-Repayable Funding Finder',
+    headline: 'Match with government grants and prizes that never have to be repaid.',
     description:
-      'GrantX continuously searches thousands of small business grants, government programs, and innovation subsidies so you never miss out on free money for your venture.',
+      'Stop missing out on free money for your business. GrantX searches verified government and private grants matching your specific industry and stage.',
     icon: FiDollarSign,
-    badge: 'Grant Finder',
-    color: 'text-emerald-400',
-    accentBg: 'bg-emerald-400/10',
-    glowColor: 'rgba(52, 211, 153, 0.22)',
-    gamificationNote: 'Opportunity Radar • Unlock higher tier Grant Matching with builder XP',
-    gamificationBadge: 'Grant Radar 🎯',
+    badge: 'Capital & Grants',
+    color: 'text-emerald-500',
+    accentBg: 'bg-emerald-500/10',
+    glowColor: 'rgba(16, 185, 129, 0.22)',
+    gamificationNote: 'Grant Application Checklist • XP Rewards on Every Verified Submission',
+    gamificationBadge: 'Grant Master 🎯',
     ctaText: 'Learn More About GrantX',
     ctaHref: '/contact',
   },
@@ -141,8 +143,10 @@ const PRODUCTS: ProductDetail[] = [
 
 export const ProductsSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null)
+  const mobileCarouselRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [sliceProgress, setSliceProgress] = useState(0)
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0)
 
   // Generous scroll height: 65vh per product (~390vh total) to let animations breathe naturally
   const { scrollYProgress } = useScroll({
@@ -150,8 +154,10 @@ export const ProductsSection: React.FC = () => {
     offset: ['start start', 'end end'],
   })
 
-  // Synchronize nav visibility and active product calculations
+  // Synchronize nav visibility and active product calculations on desktop
   const updateNavAndProduct = useCallback((latestProgress: number) => {
+    if (window.innerWidth < 1024) return
+
     // Determine if pinned sticky viewport is actively hijacked
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect()
@@ -184,6 +190,7 @@ export const ProductsSection: React.FC = () => {
 
     // Also listen to window scroll to catch entry/exit boundaries immediately
     const handleWindowScroll = () => {
+      if (window.innerWidth < 1024) return
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect()
         const isPinned = rect.top <= 10 && rect.bottom >= window.innerHeight - 10
@@ -204,7 +211,7 @@ export const ProductsSection: React.FC = () => {
     }
   }, [scrollYProgress, updateNavAndProduct])
 
-  // Precise scrolling on pill click: moves smoothly to target product center
+  // Precise scrolling on desktop pill click: moves smoothly to target product center
   const handlePillClick = (pIdx: number) => {
     if (!containerRef.current) return
     const containerRect = containerRef.current.getBoundingClientRect()
@@ -220,6 +227,28 @@ export const ProductsSection: React.FC = () => {
     const targetY = containerTop + targetProgress * maxScroll
 
     scrollToTarget(targetY)
+  }
+
+  // Mobile horizontal carousel scroll listener & smooth navigation
+  const handleMobileScroll = () => {
+    if (!mobileCarouselRef.current) return
+    const el = mobileCarouselRef.current
+    const card = el.firstElementChild as HTMLElement | null
+    if (!card) return
+    const cardWidth = card.offsetWidth + 16
+    const scrollLeft = el.scrollLeft
+    const newIdx = Math.round(scrollLeft / cardWidth)
+    setMobileActiveIndex(Math.max(0, Math.min(PRODUCTS.length - 1, newIdx)))
+  }
+
+  const scrollMobileTo = (idx: number) => {
+    if (!mobileCarouselRef.current) return
+    const el = mobileCarouselRef.current
+    const card = el.firstElementChild as HTMLElement | null
+    if (!card) return
+    const cardWidth = card.offsetWidth + 16
+    el.scrollTo({ left: idx * cardWidth, behavior: 'smooth' })
+    setMobileActiveIndex(idx)
   }
 
   const activeProduct = PRODUCTS[activeIndex] || PRODUCTS[0]
@@ -238,16 +267,208 @@ export const ProductsSection: React.FC = () => {
             Helpful Software Tools Built for Everyday Life & Work
           </h2>
           <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 mt-4 leading-relaxed">
-            Scroll down to explore our family of connected apps. Each tool solves a real task, makes
-            work effortless, and rewards your daily progress.
+            Explore our family of connected apps. Each tool solves a real task, makes work effortless,
+            and rewards your daily progress.
           </p>
         </div>
       </div>
 
-      {/* 2. Scroll-Hijacking Pinned Container (65vh per product for ample, relaxed animation time) */}
+      {/* 2. Mobile Horizontal Gesture Snap Carousel (Apple / Stripe Mobile Pattern) */}
+      <div className="block lg:hidden py-8">
+        {/* Swipe Track */}
+        <div
+          ref={mobileCarouselRef}
+          onScroll={handleMobileScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 px-4 sm:px-6 pb-4 scrollbar-none scroll-smooth"
+        >
+          {PRODUCTS.map((prod, pIdx) => {
+            const ProdIcon = prod.icon
+            return (
+              <div
+                key={prod.id}
+                className="w-[86vw] sm:w-[75vw] max-w-[380px] shrink-0 snap-center rounded-3xl bg-neutral-50/80 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xl p-5 sm:p-6 flex flex-col justify-between"
+              >
+                <div>
+                  {/* Top Status */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[11px] font-bold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950/60 px-2.5 py-1 rounded-full border border-primary-500/20">
+                      {prod.badge}
+                    </span>
+                    <span className="text-xs font-mono font-semibold text-neutral-400">
+                      {pIdx + 1} of {PRODUCTS.length}
+                    </span>
+                  </div>
+
+                  {/* App Name & Icon */}
+                  <div className="flex items-center space-x-3 mb-2.5">
+                    <div
+                      className={`w-11 h-11 rounded-2xl ${prod.accentBg} ${prod.color} flex items-center justify-center font-bold shadow-sm`}
+                    >
+                      <ProdIcon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-extrabold text-neutral-900 dark:text-white">
+                        {prod.name}
+                      </h3>
+                      <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                        {prod.tagline}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Headline */}
+                  <h4 className="text-sm font-bold text-neutral-800 dark:text-neutral-100 mb-2 leading-snug">
+                    {prod.headline}
+                  </h4>
+
+                  {/* Description */}
+                  <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
+                    {prod.description}
+                  </p>
+
+                  {/* Live Visual Feature Card */}
+                  <div className="w-full h-40 rounded-2xl bg-white dark:bg-neutral-950 border border-neutral-200/80 dark:border-neutral-800 p-4 flex flex-col justify-center items-center relative overflow-hidden mb-4 shadow-sm">
+                    {prod.id === 'ulo' && (
+                      <div className="flex flex-col items-center justify-center text-center">
+                        <div className="w-20 h-20 rounded-full bg-amber-500/10 border-2 border-amber-500/30 flex flex-col items-center justify-center shadow-md mb-2">
+                          <FiZap className="w-6 h-6 text-amber-500" />
+                          <span className="text-sm font-black text-neutral-900 dark:text-white font-mono">
+                            3.5x
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-bold text-amber-600 uppercase">
+                          Speed Booster Active
+                        </span>
+                      </div>
+                    )}
+
+                    {prod.id === 'matrix' && (
+                      <div className="flex items-center justify-center space-x-2">
+                        <div className="w-14 h-14 rounded-xl bg-violet-600 text-white flex flex-col items-center justify-center shadow-lg">
+                          <FiGrid className="w-5 h-5 mb-0.5" />
+                          <span className="text-[8px] font-bold">MatriX</span>
+                        </div>
+                        <div className="space-y-1.5 text-[10px] font-bold">
+                          <div className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                            ✓ Synced Tasks
+                          </div>
+                          <div className="px-2 py-0.5 rounded-md bg-violet-500/10 text-violet-600 border border-violet-500/20">
+                            ✓ Clean Files
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {prod.id === 'casax' && (
+                      <div className="flex flex-col items-center justify-center text-center">
+                        <div className="w-16 h-16 rounded-full bg-emerald-500/10 border-2 border-emerald-500/30 flex items-center justify-center mb-1.5">
+                          <FiShield className="w-7 h-7 text-emerald-500" />
+                        </div>
+                        <span className="text-[11px] font-bold text-emerald-600">
+                          100% Assets Protected
+                        </span>
+                      </div>
+                    )}
+
+                    {prod.id === 'buzx' && (
+                      <div className="w-full flex flex-col items-center">
+                        <div className="flex items-end justify-center space-x-2 h-16 mb-2">
+                          <div className="w-4 h-6 rounded-t bg-cyan-500/30" />
+                          <div className="w-4 h-9 rounded-t bg-cyan-500/50" />
+                          <div className="w-4 h-12 rounded-t bg-cyan-500/70" />
+                          <div className="w-4 h-15 rounded-t bg-cyan-500 shadow" />
+                        </div>
+                        <span className="text-[10px] font-bold text-cyan-600">
+                          +42% Revenue Growth
+                        </span>
+                      </div>
+                    )}
+
+                    {prod.id === 'marketx' && (
+                      <div className="flex flex-col items-center justify-center text-center">
+                        <div className="w-14 h-14 rounded-2xl bg-primary-500/10 border border-primary-500/30 text-primary-500 flex items-center justify-center shadow-md mb-1.5">
+                          <FiShoppingBag className="w-6 h-6" />
+                        </div>
+                        <span className="text-[10px] font-bold text-primary-600">
+                          Instant Global Checkout
+                        </span>
+                      </div>
+                    )}
+
+                    {prod.id === 'grantx' && (
+                      <div className="flex flex-col items-center justify-center text-center">
+                        <div className="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 flex items-center justify-center shadow-md mb-1.5">
+                          <FiDollarSign className="w-6 h-6" />
+                        </div>
+                        <span className="text-[10px] font-bold text-emerald-600">
+                          $50,000 Matched Grant
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Gamification Perk Badge */}
+                  <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-800 dark:text-amber-300 font-medium flex items-center space-x-2">
+                    <FiAward className="w-4 h-4 text-amber-500 shrink-0" />
+                    <span>{prod.gamificationBadge}</span>
+                  </div>
+                </div>
+
+                {/* Card CTA */}
+                <a
+                  href={prod.ctaHref}
+                  className="w-full mt-4 py-3 px-4 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-bold text-xs flex items-center justify-center space-x-1.5 shadow-lg shadow-primary-500/25 active:scale-[0.98] transition-all"
+                >
+                  <span>{prod.ctaText}</span>
+                  <FiArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Carousel Indicators & Controls */}
+        <div className="px-4 mt-4 flex items-center justify-between">
+          <button
+            onClick={() => scrollMobileTo(Math.max(0, mobileActiveIndex - 1))}
+            disabled={mobileActiveIndex === 0}
+            className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 disabled:opacity-30 flex items-center justify-center transition-all cursor-pointer"
+            aria-label="Previous app"
+          >
+            <FiChevronLeft className="w-4 h-4" />
+          </button>
+
+          {/* Dots Indicator */}
+          <div className="flex items-center space-x-2">
+            {PRODUCTS.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                onClick={() => scrollMobileTo(dotIdx)}
+                aria-label={`Jump to app ${dotIdx + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  dotIdx === mobileActiveIndex
+                    ? 'w-7 bg-primary-500'
+                    : 'w-2 bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400'
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={() => scrollMobileTo(Math.min(PRODUCTS.length - 1, mobileActiveIndex + 1))}
+            disabled={mobileActiveIndex === PRODUCTS.length - 1}
+            className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 disabled:opacity-30 flex items-center justify-center transition-all cursor-pointer"
+            aria-label="Next app"
+          >
+            <FiChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* 3. Desktop Scroll-Hijacking Pinned Container (hidden on mobile, full cinematic scroll on lg:) */}
       <div
         ref={containerRef}
-        className="relative"
+        className="relative hidden lg:block"
         style={{ height: `${PRODUCTS.length * 65}vh` }}
       >
         {/* Sticky Pinned Full-Screen Viewport Container */}

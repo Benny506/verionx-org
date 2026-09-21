@@ -11,7 +11,7 @@ export const App: React.FC = () => {
   return (
     <BrowserRouter>
       <SmoothScroll>
-        <div className="min-h-screen flex flex-col bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 selection:bg-primary-500 selection:text-white font-rubik">
+        <div className="min-h-screen w-full max-w-full overflow-x-clip flex flex-col bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 selection:bg-primary-500 selection:text-white font-rubik">
           <Navbar />
           <div className="flex-grow">
             <Routes>

@@ -8,9 +8,11 @@ import { SlantedScrollCard } from '../common/SlantedScrollCard'
 export const GamificationSpotlight: React.FC = () => {
   return (
     <section id="gamification" className="py-24 sm:py-32 bg-neutral-50/70 dark:bg-neutral-950 text-neutral-900 dark:text-white relative">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-10 left-10 w-[30rem] h-[30rem] bg-primary-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
+      {/* Background ambient lighting strictly contained */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-[30rem] h-[30rem] bg-primary-500/10 rounded-full blur-3xl" />
+      </div>
 
       <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
