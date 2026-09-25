@@ -2,20 +2,20 @@ import type { SEOProps } from '../components/SEO'
 
 export const SEO_CONFIG: Record<'home' | 'about' | 'contact', SEOProps> = {
   home: {
-    title: 'VerionX — Learn Skills, Use Helpful Apps & Build Your Business',
+    title: 'VerionX — Ecosystem of 14 Live Applications & Venture Launchpad',
     description:
-      'VerionX is a fun platform where you can learn practical tech skills, use smart everyday software apps (ULO, MatriX, CasaX & more), and get help starting your business while earning points and rewards.',
+      'VerionX is an ecosystem of 14 specialized applications spanning AI agent engineering (UloX, ZeusX), crop computer vision (RadX), healthcare (OmegaX), mathematics (CalX), and finance operations (FinX, BuzX, GrantX).',
     keywords:
-      'VerionX, simple software tools, learn tech skills, creative brainstorming, small business help, startup grants, gamified learning, ULO, MatriX, CasaX, BuzX, MarketX, GrantX',
+      'VerionX, UloX, RadX, OmegaX, ZeusX, BuzX, TraweX, MarketX, CalX, BiblioX, ResearchX, GrantX, LearnX, MatriX, FinX, AI agent trainer, crop disease diagnosis, non-repayable grants, SOX closing, prompt engineering',
     url: '/',
     type: 'website',
   },
   about: {
-    title: 'About Us — Learn, Build & Grow with VerionX',
+    title: 'About Us — 14 Specialized Applications & Venture Ecosystem',
     description:
-      'Discover how VerionX makes learning tech and building a business simple, fun, and rewarding with short lessons, everyday apps, and startup support.',
+      'Discover how VerionX is engineering 14 connected software applications to make tech skills, artificial intelligence, healthcare, and enterprise venture scale accessible.',
     keywords:
-      'About VerionX, learn practical skills, business launchpad, friendly tech tools, startup guidance',
+      'About VerionX, AI agents, agricultural computer vision, startup incubator, non-dilutive grants, venture ecosystem',
     url: '/about',
     type: 'website',
   },

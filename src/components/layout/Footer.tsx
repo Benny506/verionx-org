@@ -1,18 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FiArrowUp, FiShield } from 'react-icons/fi'
+import { FiArrowUp, FiShield, FiExternalLink } from 'react-icons/fi'
 import { FaTwitter, FaLinkedin, FaGithub, FaDiscord } from 'react-icons/fa'
 import logoWordmark from '../../assets/logos/logo-wordmark.svg'
+import { ECOSYSTEM_PROJECTS } from '../../content/projectsData'
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const aiAndTools = ECOSYSTEM_PROJECTS.filter(
+    (p) => p.category === 'AI & Developer' || p.id === 'learnx' || p.id === 'researchx'
+  )
+  const commerceAndFinance = ECOSYSTEM_PROJECTS.filter(
+    (p) => p.category === 'Commerce & Finance'
+  )
+  const healthAndStrategy = ECOSYSTEM_PROJECTS.filter(
+    (p) =>
+      p.category === 'Health & AgriTech' ||
+      (p.category === 'Learning & Strategy' && p.id !== 'learnx' && p.id !== 'researchx')
+  )
+
   return (
     <footer className="bg-neutral-900 text-neutral-200 border-t border-neutral-800 pt-16 pb-12">
       <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-neutral-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 pb-12 border-b border-neutral-800">
           {/* Brand Info & Mission */}
           <div className="lg:col-span-2 flex flex-col justify-between pr-0 lg:pr-6">
             <div>
@@ -24,8 +37,8 @@ export const Footer: React.FC = () => {
                 />
               </Link>
               <p className="text-sm text-neutral-300 max-w-md leading-relaxed mt-2">
-                VerionX is a fun playground where you can learn practical tech skills, use smart software
-                apps that save you time, and get help building your own business — all powered by points and rewards.
+                VerionX is a venture playground building 14 specialized applications across AI engineering,
+                crop computer vision, healthcare, competitive mathematics, and autonomous corporate finance.
               </p>
             </div>
 
@@ -69,75 +82,73 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Column 1: Core Pillars */}
+          {/* Column 1: AI & Intelligence */}
           <div>
             <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
-              Core Pillars
+              AI & Research
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li>
-                <a href="/#pillars" className="text-neutral-300 hover:text-white transition-colors">
-                  Learning Hub
-                </a>
-              </li>
-              <li>
-                <a href="/#pillars" className="text-neutral-300 hover:text-white transition-colors">
-                  Creative Skills
-                </a>
-              </li>
-              <li>
-                <a href="/#pillars" className="text-neutral-300 hover:text-white transition-colors">
-                  Digital Skills & AI
-                </a>
-              </li>
-              <li>
-                <a href="/#ventures" className="text-neutral-300 hover:text-white transition-colors">
-                  Enterprise Center
-                </a>
-              </li>
-              <li>
-                <a href="/#gamification" className="text-neutral-300 hover:text-white transition-colors">
-                  Gamification Backbone
-                </a>
-              </li>
+              {aiAndTools.map((prod) => (
+                <li key={prod.id}>
+                  <a
+                    href={prod.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-neutral-300 hover:text-white transition-colors flex items-center space-x-1.5 group"
+                  >
+                    <span>{prod.name}</span>
+                    <FiExternalLink className="w-3 h-3 text-neutral-500 group-hover:text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Column 2: Digital Products */}
+          {/* Column 2: Commerce & Finance */}
           <div>
             <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
-              Digital Products
+              Commerce & Finance
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li>
-                <a href="/#products" className="text-neutral-300 hover:text-white transition-colors">
-                  ULO & ULOX
-                </a>
-              </li>
-              <li>
-                <a href="/#products" className="text-neutral-300 hover:text-white transition-colors">
-                  MatriX OS
-                </a>
-              </li>
-              <li>
-                <a href="/#products" className="text-neutral-300 hover:text-white transition-colors">
-                  CasaX
-                </a>
-              </li>
-              <li>
-                <a href="/#products" className="text-neutral-300 hover:text-white transition-colors">
-                  BuzX & MarketX
-                </a>
-              </li>
-              <li>
-                <a href="/#products" className="text-neutral-300 hover:text-white transition-colors">
-                  GrantX Finder
-                </a>
-              </li>
+              {commerceAndFinance.map((prod) => (
+                <li key={prod.id}>
+                  <a
+                    href={prod.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-neutral-300 hover:text-white transition-colors flex items-center space-x-1.5 group"
+                  >
+                    <span>{prod.name}</span>
+                    <FiExternalLink className="w-3 h-3 text-neutral-500 group-hover:text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Column 3: Company & Quick Links */}
+          {/* Column 3: Health, Agri & Strategy */}
+          <div>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
+              Life & Strategy
+            </h4>
+            <ul className="space-y-2.5 text-sm">
+              {healthAndStrategy.map((prod) => (
+                <li key={prod.id}>
+                  <a
+                    href={prod.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-neutral-300 hover:text-white transition-colors flex items-center space-x-1.5 group"
+                  >
+                    <span>{prod.name}</span>
+                    <FiExternalLink className="w-3 h-3 text-neutral-500 group-hover:text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Company & Navigation */}
           <div>
             <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
               Company
@@ -154,6 +165,11 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
+                <a href="/#pillars" className="text-neutral-300 hover:text-white transition-colors">
+                  Five Pillars
+                </a>
+              </li>
+              <li>
                 <a href="/#ventures" className="text-neutral-300 hover:text-white transition-colors">
                   Venture Incubation
                 </a>
@@ -161,7 +177,7 @@ export const Footer: React.FC = () => {
               <li>
                 <span className="inline-flex items-center text-xs font-medium text-emerald-300 bg-emerald-950/70 px-2.5 py-1 rounded-full border border-emerald-700/50">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse" />
-                  Ecosystem Online
+                  14 Apps Online
                 </span>
               </li>
             </ul>
@@ -177,7 +193,7 @@ export const Footer: React.FC = () => {
           <div className="flex items-center space-x-6">
             <span className="flex items-center space-x-1">
               <FiShield className="w-3.5 h-3.5 text-primary-500" />
-              <span>Built for Creators & Builders</span>
+              <span>14 Connected Venture Applications</span>
             </span>
             <button
               onClick={scrollToTop}

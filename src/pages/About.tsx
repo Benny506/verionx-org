@@ -17,9 +17,10 @@ export const About: React.FC = () => {
             We Make Learning, Building, and Growing Fun & Easy
           </h1>
           <p className="text-lg text-neutral-600 dark:text-neutral-300 mt-6 leading-relaxed">
-            VerionX was started with a simple thought: learning tech skills and building a business
-            shouldn't be confusing, expensive, or boring. We bring together short lessons, everyday
-            software apps, creative thinking, and business help into one friendly playground.
+            VerionX is an ecosystem of 14 specialized applications designed to make learning, creating,
+            and growing high-impact ventures accessible to everyone. We engineer intuitive software spanning
+            agentic AI (UloX, ZeusX), vital agriculture & healthcare (RadX, OmegaX), competitive learning (CalX, LearnX),
+            and venture scale (BuzX, GrantX, FinX).
           </p>
         </div>
 
@@ -30,11 +31,11 @@ export const About: React.FC = () => {
               <FiTarget className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-neutral-950 dark:text-white mb-3">
-              Simple & Plain English
+              High-Utility & Plain English
             </h3>
             <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-              No confusing tech jargon or complex buzzwords. We explain things in plain, everyday words
-              so anyone can pick up new skills in minutes.
+              Every tool solves a tangible problem without unnecessary friction or complexity. We turn
+              advanced AI and computing into intuitive interfaces anyone can master in minutes.
             </p>
           </div>
 
@@ -43,11 +44,11 @@ export const About: React.FC = () => {
               <FiZap className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-neutral-950 dark:text-white mb-3">
-              Fun & Rewarding
+              Gamified & Rewarding
             </h3>
             <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-              You learn best when it feels good. Earn points, level up, and unlock real perks for every
-              lesson you finish and project you build.
+              Progress feels exciting. Earn XP, build daily learning streaks, and unlock real venture perks
+              as you test apps, build agent loops, or run business models.
             </p>
           </div>
 
@@ -56,11 +57,11 @@ export const About: React.FC = () => {
               <FiShield className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-neutral-950 dark:text-white mb-3">
-              Real Help for Real Ideas
+              14 Connected Solutions
             </h3>
             <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-              Got a business idea? We help you build a simple test version, find small business grants,
-              and get your first 100 paying customers.
+              From protecting crop harvests in RadX to finding non-dilutive capital in GrantX and closing
+              corporate books in FinX, our applications operate as a unified growth playground.
             </p>
           </div>
         </div>

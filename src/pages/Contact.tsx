@@ -146,14 +146,21 @@ export const Contact: React.FC = () => {
                       className="w-full px-4 py-3 rounded-xl bg-neutral-50 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all cursor-pointer"
                     >
                       <option value="General Question">General Question</option>
-                      <option value="Using the Software Apps (ULO, MatriX, etc.)">
-                        Using the Software Apps (ULO, MatriX, etc.)
+                      <option value="AI & Agentic Engineering (UloX, ZeusX)">
+                        AI & Agentic Engineering (UloX, ZeusX)
                       </option>
-                      <option value="Learning New Skills">Learning New Skills</option>
-                      <option value="Starting or Growing a Business">
-                        Starting or Growing a Business
+                      <option value="AgriTech & Healthcare (RadX, OmegaX)">
+                        AgriTech & Healthcare (RadX, OmegaX)
                       </option>
-                      <option value="Grants & Partnerships">Grants & Partnerships</option>
+                      <option value="Commerce & Financial Ops (BuzX, MarketX, FinX)">
+                        Commerce & Financial Ops (BuzX, MarketX, FinX)
+                      </option>
+                      <option value="Non-Repayable Grants & Funding (GrantX)">
+                        Non-Repayable Grants & Funding (GrantX)
+                      </option>
+                      <option value="Strategy, Math & Education (CalX, LearnX, MatriX, ResearchX)">
+                        Strategy, Math & Education (CalX, LearnX, MatriX, ResearchX)
+                      </option>
                     </select>
                   </div>
 

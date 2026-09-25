@@ -157,7 +157,7 @@ export const GamificationSpotlight: React.FC = () => {
                   </div>
 
                   <p className="text-sm text-neutral-200 font-medium leading-snug">
-                    Try out the 2-minute brainstorming guide in Creative Skills.
+                    Build your first autonomous multi-agent loop in UloX or challenge a friend to a Math Duel in CalX.
                   </p>
 
                   <Link

@@ -84,21 +84,21 @@ export const HeroSection: React.FC = () => {
             <div className="pt-6 border-t border-neutral-200/70 dark:border-neutral-800/70 grid grid-cols-3 gap-4 sm:gap-8 w-full">
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white">
-                  5 Ways
+                  5 Pillars
                 </div>
-                <div className="text-xs text-neutral-500 dark:text-neutral-400">To Learn & Grow</div>
+                <div className="text-xs text-neutral-500 dark:text-neutral-400">To Learn & Build</div>
               </div>
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white">
-                  7+ Apps
+                  14 Live Apps
                 </div>
-                <div className="text-xs text-neutral-500 dark:text-neutral-400">Ready to Use</div>
+                <div className="text-xs text-neutral-500 dark:text-neutral-400">In Production</div>
               </div>
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400">
                   100%
                 </div>
-                <div className="text-xs text-neutral-500 dark:text-neutral-400">Fun & Rewarding</div>
+                <div className="text-xs text-neutral-500 dark:text-neutral-400">Practical & Rewarding</div>
               </div>
             </div>
           </motion.div>
@@ -121,10 +121,10 @@ export const HeroSection: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="text-base font-bold text-neutral-900 dark:text-white leading-tight">
-                        Your Daily Journey
+                        Your Daily Ecosystem Quests
                       </h3>
                       <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                        Learn a little bit every day & level up
+                        Explore tools, complete micro-actions & level up
                       </p>
                     </div>
                   </div>
@@ -150,11 +150,11 @@ export const HeroSection: React.FC = () => {
                     <div className="flex items-center space-x-2.5">
                       <FiCheckCircle className="w-4 h-4 text-emerald-500" />
                       <span className="text-xs font-medium text-neutral-800 dark:text-neutral-200">
-                        Learning Hub: Take your first 5-min lesson
+                        UloX: Build your first AI agent graph
                       </span>
                     </div>
                     <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
-                      +50 Points
+                      +250 XP
                     </span>
                   </div>
 
@@ -162,11 +162,11 @@ export const HeroSection: React.FC = () => {
                     <div className="flex items-center space-x-2.5">
                       <FiZap className="w-4 h-4 text-primary-500" />
                       <span className="text-xs font-medium text-neutral-800 dark:text-neutral-200">
-                        Apps & Tools: Test out ULO & MatriX
+                        RadX: Scan a cassava crop for disease
                       </span>
                     </div>
                     <span className="text-[11px] font-semibold text-primary-600 dark:text-primary-400">
-                      Ready
+                      +150 XP
                     </span>
                   </div>
 
@@ -174,11 +174,11 @@ export const HeroSection: React.FC = () => {
                     <div className="flex items-center space-x-2.5">
                       <FiTrendingUp className="w-4 h-4 text-primary-500" />
                       <span className="text-xs font-medium text-neutral-800 dark:text-neutral-200">
-                        Startup Hub: Plan your business idea
+                        FinX: Run automated balance reconciliation
                       </span>
                     </div>
                     <span className="text-[11px] font-semibold text-primary-600 dark:text-primary-400">
-                      Unlocked
+                      +320 XP
                     </span>
                   </div>
                 </div>
